@@ -45,7 +45,6 @@
 
       <div class="menu-col">
         <div class="menu-tools">
-          <nav class="cat-tabs" data-cat-tabs aria-label="Menu sections"></nav>
           <div class="search">
             <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
             <input type="search" placeholder="Search dishes, e.g. momo, paneer" aria-label="Search the menu" data-search autocomplete="off">
@@ -57,6 +56,7 @@
             <button class="chip" type="button" aria-pressed="false" data-filter="mild">No chilli</button>
           </div>
         </div>
+        <nav class="cat-tabs" data-cat-tabs aria-label="Menu sections"></nav>
         <div data-menu>
           <p class="empty-results">Loading the menu…</p>
         </div>
@@ -134,9 +134,15 @@
           <p class="summary-meta" data-summary-meta></p>
           <ul class="summary-lines" data-summary-lines></ul>
           <div data-summary-totals></div>
-          <button class="btn btn-primary btn-block" type="submit" data-place><span>Place order</span><span data-place-total class="tabular"></span></button>
+          <button class="btn btn-primary btn-block summary-place" type="submit" data-place><span>Place order</span><span data-place-total class="tabular"></span></button>
           <p class="summary-note">You'll pay when you collect or when it arrives. We'll confirm by text.</p>
         </aside>
+
+        <!-- Phones: the place-order button is always within thumb reach -->
+        <div class="place-bar">
+          <div class="place-bar-total"><span>Total</span><strong data-place-bar-total></strong></div>
+          <button class="btn btn-primary" type="submit" data-place-mobile>Place order</button>
+        </div>
       </form>
     </section>
   </main>

@@ -390,6 +390,8 @@
   let lastFocus = null;
   function openCartSheet() {
     lastFocus = document.activeElement;
+    const t = document.querySelector('.toast');
+    if (t) t.classList.remove('is-shown');
     panel.classList.add('is-open');
     backdrop.classList.add('is-open');
     document.documentElement.style.overflow = 'hidden';
@@ -428,6 +430,7 @@
       '<div class="sum-row total"><span>Total</span><span>' + moneyExact(t.total) + '</span></div>';
     const placeTotal = $('[data-place-total]');
     if (placeTotal) placeTotal.textContent = moneyExact(t.total);
+    $('[data-place-bar-total]').textContent = moneyExact(t.total);
   }
 
   function renderPayment() {
@@ -491,8 +494,9 @@
       notes: data.notes,
       cutlery: !!data.cutlery
     };
-    const btn = $('[data-place]');
-    setBusy(btn, true, 'Sending to the kitchen…');
+    const btn = e.submitter && e.submitter.matches('[data-place-mobile]') ? e.submitter : $('[data-place]');
+    $$('[data-place], [data-place-mobile]').forEach((b) => { b.disabled = true; });
+    setBusy(btn, true, 'Sending…');
     try {
       const order = await Api.createOrder(payload);
       try {
@@ -506,6 +510,7 @@
       return;
     } catch (err) {
       setBusy(btn, false);
+      $$('[data-place], [data-place-mobile]').forEach((b) => { b.disabled = false; });
       if (err.field && form[err.field]) { setError(err.field, err.message); form[err.field].focus(); return; }
       if (err.field === 'when') { const w = $('[data-when-error]'); w.textContent = err.message; w.style.display = 'block'; }
       alertBox.textContent = err.message;

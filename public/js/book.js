@@ -88,6 +88,11 @@
     const b = e.target.closest('[data-date]');
     if (!b || b.disabled) return;
     selectDate(b.dataset.date);
+    // On phones the times are below the fold: bring them up once a date is picked.
+    if (window.innerWidth <= 700) {
+      const block = $('[data-time-block]');
+      setTimeout(() => block.scrollIntoView({ behavior: 'smooth', block: 'start' }), 80);
+    }
   });
   $$('[data-scroll]').forEach((b) => b.addEventListener('click', () => {
     strip.scrollBy({ left: Number(b.dataset.scroll) * strip.clientWidth * 0.8, behavior: 'smooth' });

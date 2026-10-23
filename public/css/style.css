@@ -629,7 +629,8 @@ dialog[open]::backdrop { animation: fade .3s var(--ease); }
 .filter-chips .chip { min-height: 36px; padding: 0 13px; font-size: .84rem; }
 .cat-tabs { display: none; }
 
-.menu-cat { padding-top: 36px; }
+/* html already reserves the header height (scroll-padding-top); this clears the pinned tools/tabs too */
+.menu-cat { padding-top: 36px; scroll-margin-top: 64px; }
 .menu-cat-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding-bottom: 6px; }
 .menu-cat-head h2 { font-family: var(--f-display); font-size: clamp(1.8rem, 2.8vw, 2.4rem); line-height: 1.05; }
 .menu-cat-head .deva { font-size: 1.25rem; color: var(--chili); }
@@ -698,14 +699,33 @@ dialog[open]::backdrop { animation: fade .3s var(--ease); }
 @media (max-width: 1180px) {
   .order-layout { grid-template-columns: minmax(0, 1fr) 340px; gap: 36px; }
   .cat-rail { display: none; }
-  .cat-tabs { display: flex; gap: 6px; overflow-x: auto; width: 100%; scrollbar-width: none; margin: 0 calc(var(--gutter) * -1); padding: 0 var(--gutter); }
+  /* Below desktop only the category tabs stay pinned; search and filters scroll away with the page. */
+  .menu-tools { position: static; border-bottom: 0; margin-bottom: 0; padding-bottom: 8px; }
+  .cat-tabs {
+    position: sticky; top: var(--header-h); z-index: 20;
+    display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+    margin: 0 -20px; padding: 10px 20px; background: var(--paper); border-bottom: 1px solid var(--rule);
+  }
   .cat-tabs::-webkit-scrollbar { display: none; }
-  .cat-tabs a { flex: none; padding: 7px 13px; border-radius: 999px; font-size: .86rem; font-weight: 500; text-decoration: none; color: var(--ink-2); border: 1px solid transparent; }
-  .cat-tabs a.is-active { background: var(--ink); color: var(--paper); }
+  .cat-tabs a { flex: none; padding: 8px 14px; border-radius: 999px; font-size: .88rem; font-weight: 500; text-decoration: none; color: var(--ink-2); border: 1px solid var(--rule); }
+  .cat-tabs a.is-active { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+  .menu-cat { scroll-margin-top: 44px; }
 }
 @media (max-width: 860px) {
   .order-layout { grid-template-columns: minmax(0, 1fr); padding-bottom: 110px; }
-  .menu-tools { margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); gap: 10px; padding-block: 10px; }
+  .menu-tools { margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); gap: 10px; padding-block: 4px 12px; }
+  .cat-tabs { margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); }
+  .order-head { padding-top: 22px; padding-bottom: 14px; gap: 18px; }
+  .order-head .h1 { font-size: 2.6rem; margin-top: 12px; }
+  .order-head .lede { font-size: .95rem; margin-top: 8px; }
+  .menu-cat { padding-top: 26px; }
+  .item { padding: 18px 0; gap: 14px; }
+  .item-name { font-size: 1.18rem; }
+  .item-desc { font-size: .88rem; margin: 4px 0 8px; }
+  .item-thumb + .add-btn { margin: -46px 6px 0 0; }
+  .cart-head { position: relative; padding-top: 26px; }
+  .cart-head::before { content: ''; position: absolute; top: 9px; left: 50%; width: 38px; height: 4px; margin-left: -19px; border-radius: 2px; background: var(--rule-strong); }
+  .cart-line { padding: 12px 0; }
   .filter-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); width: calc(100% + var(--gutter) * 2); }
   .filter-chips::-webkit-scrollbar { display: none; }
   .filter-chips .chip { flex: none; }
@@ -748,9 +768,23 @@ dialog[open]::backdrop { animation: fade .3s var(--ease); }
 .summary-lines small { display: block; color: var(--ink-3); font-size: .78rem; }
 .summary .btn { margin-top: 18px; justify-content: space-between; }
 .summary-note { font-size: .78rem; color: var(--ink-3); margin-top: 12px; text-align: center; }
+.place-bar { display: none; }
 @media (max-width: 960px) {
-  .checkout-layout { grid-template-columns: 1fr; }
-  .summary { position: static; order: -1; }
+  .checkout-layout { grid-template-columns: minmax(0, 1fr); gap: 8px; padding-bottom: 120px; }
+  /* Form first, order recap last; the fixed bar below keeps "Place order" in reach the whole time. */
+  .summary { position: static; }
+  .summary-place { display: none; }
+  .place-bar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 12px var(--gutter) calc(12px + env(safe-area-inset-bottom));
+    background: var(--paper); border-top: 1px solid var(--rule); box-shadow: 0 -12px 30px -20px rgba(30, 24, 20, .45);
+  }
+  .place-bar-total span { display: block; font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+  .place-bar-total strong { font-family: var(--f-display); font-weight: 400; font-size: 1.4rem; line-height: 1.1; }
+  .place-bar .btn { flex: 1; max-width: 260px; }
+  .checkout-section { padding: 22px 0; }
+  .checkout-section > h2 { font-size: 1.35rem; margin-bottom: 14px; }
 }
 
 /* when dialog */
@@ -873,8 +907,41 @@ dialog[open]::backdrop { animation: fade .3s var(--ease); }
 .ticket-note { padding: 0 28px 24px; font-size: .88rem; color: var(--ink-2); }
 .ticket.is-cancelled .ticket-top { background: var(--ink-3); }
 @media (max-width: 1000px) {
-  .book-layout { grid-template-columns: 1fr; }
+  /* minmax(0, …) stops the long date strip from stretching the column to thousands of px */
+  .book-layout { grid-template-columns: minmax(0, 1fr); }
   .book-aside { position: static; }
+}
+@media (max-width: 700px) {
+  .book-main .page-head { padding-top: 22px; }
+  .book-main .page-head .h1 { font-size: 2.6rem; margin-top: 12px; }
+  .book-main .page-head .lede { font-size: .95rem; margin-top: 8px; }
+  .steps { margin-top: 20px; }
+  .book-block { padding: 22px 0; }
+  .book-block legend, .book-block .block-title { font-size: 1.25rem; margin-bottom: 14px; }
+  .party-chips { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .party-chips .chip { min-width: 0; min-height: 46px; padding: 0; font-size: 1rem; }
+  /* swipeable, edge-to-edge date strip */
+  .date-strip { margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scroll-padding-inline: var(--gutter); }
+  .date-nav button { display: none; }
+  .date-btn { width: 66px; }
+  .time-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 7px; }
+  .time-btn { min-height: 46px; }
+  /* the action bar is pinned to the bottom of the screen */
+  .book-bar {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+    padding: 12px var(--gutter) calc(12px + env(safe-area-inset-bottom));
+    background: var(--paper); border-top: 1px solid var(--rule); box-shadow: 0 -12px 30px -20px rgba(30, 24, 20, .45);
+  }
+  .book-bar .btn { min-height: 48px; padding: 0 18px; flex: none; }
+  .book-summary { font-size: .88rem; margin: 0; }
+  .book-main > [data-step] { padding-bottom: 84px; }
+  .book-aside .photo { display: none; }
+  .book-aside { border-top: 1px solid var(--rule); }
+  .ticket-top { padding: 22px; }
+  .ticket-grid { padding: 20px 22px; }
+  .ticket-actions { padding: 0 22px 22px; }
+  .ticket-actions .btn { flex: 1 1 auto; }
+  .ticket-note { padding: 0 22px 20px; }
 }
 @media (max-width: 560px) {
   .ticket-grid { grid-template-columns: 1fr 1fr; }
