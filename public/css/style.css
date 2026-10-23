@@ -154,19 +154,28 @@ ul, ol { margin: 0; padding: 0; }
 .nav a:hover, .nav a[aria-current] { color: var(--ink); }
 .nav a:hover::after, .nav a[aria-current]::after { transform: scaleX(1); }
 .header-actions { display: flex; align-items: center; gap: 14px; }
-/* Open/closed is shown with a diyo, the clay oil lamp lit at Tihar: lit when open, cold with a wisp of smoke when closed. */
-.open-chip { display: inline-flex; align-items: center; gap: 7px; font-size: .8rem; color: var(--ink-3); white-space: nowrap; }
-.open-chip::before {
-  content: ''; width: 20px; height: 20px; flex: none; margin-top: -3px;
-  background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 12.4c-1.6-1.6 1.6-3.2 0-4.8s1.6-3.2 0-4.7' fill='none' stroke='%23b3a593' stroke-width='1.3' stroke-linecap='round'/%3E%3Cpath d='M12 12.4V14' stroke='%235e5249' stroke-width='1.3' stroke-linecap='round'/%3E%3Cpath d='M2.5 14h19c-.9 4.3-4.8 7-9.5 7s-8.6-2.7-9.5-7z' fill='%23a3958a'/%3E%3Cpath d='M2.5 14h19' stroke='%237d7065' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E");
+/* Open/closed pill with a diyo, the clay oil lamp lit at Tihar: lit and warm when open, cold and grey when closed. */
+.open-chip {
+  display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 14px 0 6px;
+  border: 1px solid var(--rule); border-radius: 999px; background: var(--paper-2);
+  font-size: .8rem; color: var(--ink-3); white-space: nowrap;
+  transition: background-color .4s var(--ease), border-color .4s var(--ease);
 }
-.open-chip.is-open { color: var(--ink-2); }
-.open-chip.is-open::before {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='9' r='7.5' fill='%23e3a21a' opacity='.18'/%3E%3Cpath d='M12 2.5c2.3 2.7 3.3 4.8 3.3 6.5a3.3 3.3 0 0 1-6.6 0c0-1.7 1-3.8 3.3-6.5z' fill='%23e3a21a'/%3E%3Cpath d='M12 6.6c1 1.3 1.5 2.3 1.5 3.1a1.5 1.5 0 0 1-3 0c0-.8.5-1.8 1.5-3.1z' fill='%23fff1c2'/%3E%3Cpath d='M12 12.3V14' stroke='%235a2a10' stroke-width='1.3' stroke-linecap='round'/%3E%3Cpath d='M2.5 14h19c-.9 4.3-4.8 7-9.5 7s-8.6-2.7-9.5-7z' fill='%23a8521f'/%3E%3Cpath d='M2.5 14h19' stroke='%237a3a14' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E");
-  animation: diyoLight .9s var(--ease) both;
-}
-/* lights once on load; no endless animation */
-@keyframes diyoLight { from { opacity: .2; transform: scale(.85); } }
+.open-chip strong { font-weight: 700; color: var(--ink-2); }
+.open-chip.is-open { background: #fcecc8; border-color: #e9bf6e; color: #7a4a12; box-shadow: 0 0 0 3px rgba(233, 176, 72, .16); }
+.open-chip.is-open strong { color: #5e2f04; }
+.diyo { width: 32px; height: 32px; flex: none; margin-top: -6px; overflow: visible; }
+.diyo.is-lit { animation: diyoLight .9s var(--ease) both; }
+/* A gentle flicker on a 32px icon only; repaint cost is negligible. */
+.diyo-flame { transform-box: fill-box; transform-origin: 50% 100%; animation: flicker 2.6s ease-in-out infinite alternate; }
+.diyo-glow { animation: glow 2.6s ease-in-out infinite alternate; }
+@keyframes diyoLight { from { opacity: .25; transform: scale(.85); } }
+@keyframes flicker { 0% { transform: scale(1, 1); } 35% { transform: scale(.94, 1.06) rotate(-2deg); } 70% { transform: scale(1.04, .96) rotate(1.5deg); } 100% { transform: scale(.97, 1.03); } }
+@keyframes glow { from { opacity: .75; } to { opacity: 1; } }
+
+/* Flag of Nepal beside the wordmark */
+.flag-np { width: 15px; height: auto; align-self: center; margin-left: 2px; transform: translateY(-2px); filter: drop-shadow(0 1px 1px rgba(30, 24, 20, .18)); }
+.brand-lg .flag-np { width: 22px; }
 .cart-link { position: relative; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; text-decoration: none; color: var(--ink); transition: background-color .2s; }
 .cart-link:hover { background: var(--paper-2); }
 .cart-count {
@@ -190,7 +199,12 @@ ul, ol { margin: 0; padding: 0; }
 @keyframes fadeDown { from { opacity: 0; transform: translateY(-8px); } }
 .nav-open { overflow: hidden; }
 
-@media (max-width: 1080px) { .open-chip { display: none; } .nav { gap: 22px; } }
+@media (max-width: 1080px) {
+  .nav { gap: 22px; }
+  /* icon-only pill; the text stays available to screen readers */
+  .open-chip { width: 44px; padding: 0; justify-content: center; }
+  .open-chip-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
 @media (max-width: 880px) {
   :root { --header-h: 64px; }
   .nav, .header-book { display: none; }

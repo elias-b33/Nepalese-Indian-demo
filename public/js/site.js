@@ -65,6 +65,63 @@
   };
   const icon = (name, cls) => '<svg class="icon ' + (cls || '') + '" viewBox="0 0 24 24" aria-hidden="true" focusable="false">' + P[name] + '</svg>';
 
+  /* ---------- diyo (clay oil lamp) for open/closed, and the flag of Nepal ---------- */
+
+  let svgUid = 0;
+  function diyo(lit) {
+    const id = 'dy' + (++svgUid);
+    const clay = lit ? ['#d9773a', '#a84b1c', '#6e2b0c'] : ['#a99d92', '#857a70', '#5f564e'];
+    const dots = lit ? '#f6cf8a' : '#c4bab0';
+    return '<svg class="diyo' + (lit ? ' is-lit' : '') + '" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><defs>' +
+      '<linearGradient id="' + id + 'c" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + clay[0] + '"/><stop offset=".55" stop-color="' + clay[1] + '"/><stop offset="1" stop-color="' + clay[2] + '"/></linearGradient>' +
+      '<linearGradient id="' + id + 'r" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="' + clay[1] + '"/><stop offset=".5" stop-color="' + (lit ? '#f3a865' : '#bdb2a8') + '"/><stop offset="1" stop-color="' + clay[1] + '"/></linearGradient>' +
+      (lit
+        ? '<radialGradient id="' + id + 'g"><stop offset="0" stop-color="#ffd36b" stop-opacity=".75"/><stop offset=".45" stop-color="#ffb43a" stop-opacity=".28"/><stop offset="1" stop-color="#ff9a1f" stop-opacity="0"/></radialGradient>' +
+          '<linearGradient id="' + id + 'f" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#e2470f"/><stop offset=".45" stop-color="#ff8a1c"/><stop offset="1" stop-color="#ffc93c"/></linearGradient>' +
+          '<linearGradient id="' + id + 'i" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#fff6d8"/><stop offset=".6" stop-color="#ffe27a"/><stop offset="1" stop-color="#ffcf4a"/></linearGradient>'
+        : '') +
+      '</defs>' +
+      (lit ? '<circle class="diyo-glow" cx="20" cy="15" r="15" fill="url(#' + id + 'g)"/>' : '') +
+      // body, foot, painted dots, rim and oil
+      '<ellipse cx="20" cy="35.4" rx="6.5" ry="1.4" fill="' + clay[2] + '"/>' +
+      '<path d="M4.5 24.5C5.2 31.4 11.6 35.6 20 35.6s14.8-4.2 15.5-11.1z" fill="url(#' + id + 'c)"/>' +
+      '<path d="M7.6 28.6c3.4 1.7 7.6 2.5 12.4 2.5s9-.8 12.4-2.5" fill="none" stroke="' + dots + '" stroke-width=".7" stroke-linecap="round" opacity=".8"/>' +
+      [10.5, 15.2, 20, 24.8, 29.5].map((x, i) => '<circle cx="' + x + '" cy="' + (i === 0 || i === 4 ? 30.9 : i === 2 ? 32.3 : 31.9) + '" r=".95" fill="' + dots + '"/>').join('') +
+      '<ellipse cx="20" cy="24.5" rx="15.5" ry="3.9" fill="url(#' + id + 'r)"/>' +
+      '<ellipse cx="20" cy="24.6" rx="12.6" ry="2.6" fill="' + (lit ? '#5a2208' : '#4b433d') + '"/>' +
+      '<ellipse cx="18" cy="24.1" rx="5" ry=".7" fill="' + (lit ? '#d98a3d' : '#7d746c') + '" opacity=".55"/>' +
+      // wick
+      '<path d="M20 24.4v-3.6" stroke="' + (lit ? '#3b1606' : '#2c2622') + '" stroke-width="1.4" stroke-linecap="round"/>' +
+      (lit
+        ? '<g class="diyo-flame">' +
+          '<path d="M20 3.2c3.9 4.9 6.1 8.8 6.1 12.2 0 3.6-2.8 6-6.1 6s-6.1-2.4-6.1-6c0-3.4 2.2-7.3 6.1-12.2z" fill="url(#' + id + 'f)"/>' +
+          '<path d="M20 9.4c2.1 2.8 3.3 5 3.3 6.9 0 2-1.5 3.4-3.3 3.4s-3.3-1.4-3.3-3.4c0-1.9 1.2-4.1 3.3-6.9z" fill="url(#' + id + 'i)"/>' +
+          '<ellipse cx="20" cy="18.6" rx="1.2" ry="1.5" fill="#fff" opacity=".9"/></g>'
+        : '<circle cx="20" cy="20.6" r="1" fill="#1f1a17"/>' +
+          '<path class="diyo-smoke" d="M20 19c-2.6-2.3 2.6-4.6 0-6.9s2.6-4.6 0-6.8" fill="none" stroke="#9d9184" stroke-width="1.5" stroke-linecap="round" opacity=".75"/>' +
+          '<path d="M22.6 15.2c-1.4-1.3 1.4-2.6 0-3.9" fill="none" stroke="#b6ab9f" stroke-width="1.1" stroke-linecap="round" opacity=".55"/>') +
+      '</svg>';
+  }
+
+  function nepalFlag() {
+    // Simplified but faithful: double pennant, blue border, crescent moon above, twelve-rayed sun below.
+    const star = (cx, cy, r1, r2, n) => {
+      const pts = [];
+      for (let i = 0; i < n * 2; i++) {
+        const a = (Math.PI / n) * i - Math.PI / 2;
+        const r = i % 2 ? r1 : r2;
+        pts.push((cx + r * Math.cos(a)).toFixed(2) + ',' + (cy + r * Math.sin(a)).toFixed(2));
+      }
+      return '<polygon points="' + pts.join(' ') + '" fill="#fff"/>';
+    };
+    return '<svg class="flag-np" viewBox="-5 -6 103 133" role="img" aria-label="Flag of Nepal"><title>Nepal</title>' +
+      '<path d="M0 0L92 58H34L92 120H0z" fill="#dc143c" stroke="#003893" stroke-width="7" stroke-linejoin="miter"/>' +
+      '<circle cx="25" cy="35" r="11" fill="#fff"/><circle cx="25" cy="30.5" r="11" fill="#dc143c"/>' +
+      star(25, 31.5, 3.4, 6.2, 8) +
+      star(25, 92, 9, 14.5, 12) + '<circle cx="25" cy="92" r="8" fill="#fff"/>' +
+      '</svg>';
+  }
+
   /* ---------- cart (persisted per browser) ---------- */
 
   const CART_KEY = 'chulo.cart.v1';
@@ -110,7 +167,7 @@
       '<a class="skip-link" href="#main">Skip to content</a>' +
       '<header class="site-header' + (active === 'home' ? ' is-home' : '') + '" data-header>' +
       '<div class="wrap header-inner">' +
-      '<a class="brand" href="index.html" aria-label="Chulo, home"><span class="brand-word">Chulo</span><span class="brand-deva" lang="ne" aria-hidden="true">चुलो</span></a>' +
+      '<a class="brand" href="index.html" aria-label="Chulo, home"><span class="brand-word">Chulo</span><span class="brand-deva" lang="ne" aria-hidden="true">चुलो</span>' + nepalFlag() + '</a>' +
       '<nav class="nav" aria-label="Main">' + nav + '</nav>' +
       '<div class="header-actions">' +
       '<span class="open-chip" data-open-status></span>' +
@@ -143,7 +200,7 @@
       '<footer class="site-footer">' +
       '<div class="dhaka-band" aria-hidden="true"></div>' +
       '<div class="wrap footer-grid">' +
-      '<div class="footer-brand"><a class="brand brand-lg" href="index.html"><span class="brand-word">Chulo</span><span class="brand-deva" lang="ne" aria-hidden="true">चुलो</span></a>' +
+      '<div class="footer-brand"><a class="brand brand-lg" href="index.html"><span class="brand-word">Chulo</span><span class="brand-deva" lang="ne" aria-hidden="true">चुलो</span>' + nepalFlag() + '</a>' +
       '<p>Nepali home cooking and North Indian classics from a family kitchen in Hackney. Momo folded every morning since 2016.</p></div>' +
       '<div><h2 class="footer-h">Find us</h2><p>' + esc(a.line1) + '<br>' + esc(a.line2) + ', ' + esc(a.city) + '<br>' + esc(a.postcode) + '</p>' +
       '<p><a href="tel:' + S.phone.replace(/\s/g, '') + '">' + esc(S.phone) + '</a><br><a href="mailto:' + S.email + '">' + esc(S.email) + '</a></p></div>' +
@@ -182,9 +239,14 @@
     const paintStatus = () => {
       const st = statusText();
       document.querySelectorAll('[data-open-status]').forEach((el) => {
-        el.textContent = st.text;
         el.classList.toggle('is-open', st.open);
-        if (el.classList.contains('open-chip')) el.title = st.open ? 'The diyo is lit: our kitchen is open' : 'The diyo is out: our kitchen is closed';
+        if (!el.classList.contains('open-chip')) { el.textContent = st.text; return; }
+        if (el.dataset.status === st.text) return; // avoid re-lighting the lamp every minute
+        el.dataset.status = st.text;
+        // Header pill: lit/unlit diyo, with the headline word ("Open now" / "Closed") emphasised.
+        const [head, rest] = st.text.split(' · ');
+        el.innerHTML = diyo(st.open) + '<span class="open-chip-text"><strong>' + esc(head) + '</strong>' + (rest ? ' · ' + esc(rest) : '') + '</span>';
+        el.title = st.open ? 'The diyo is lit: our kitchen is open' : 'The diyo is out: our kitchen is closed';
       });
     };
     paintStatus();
@@ -246,5 +308,5 @@
     document.querySelectorAll('[data-hours]').forEach((el) => { el.innerHTML = hoursRows(); });
   });
 
-  window.Chulo = { S, money, moneyExact, esc, img, icon, fmtTime, fmtDate, relDay, statusText, Cart, renderHeader, renderFooter, toast, setBusy, hoursRows };
+  window.Chulo = { S, money, moneyExact, esc, img, icon, diyo, nepalFlag, fmtTime, fmtDate, relDay, statusText, Cart, renderHeader, renderFooter, toast, setBusy, hoursRows };
 })();
