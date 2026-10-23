@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kitchen · Chulo</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#17110d">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2317110d'/%3E%3Ctext x='32' y='45' font-family='Georgia' font-size='38' text-anchor='middle' fill='%23d9982a'%3EC%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Young+Serif&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/admin.css">
+  <script src="../js/menu-data.js"></script>
+  <script src="../js/core.js"></script>
+  <script src="../js/site.js"></script>
+</head>
+<body class="admin">
+  <header class="adm-top">
+    <div class="adm-brand"><span class="brand-word">Chulo</span><span class="adm-sub">Kitchen</span></div>
+    <nav class="adm-tabs" role="tablist" aria-label="Sections">
+      <button role="tab" data-tab="orders" aria-selected="true">Orders <span class="adm-badge" data-badge-orders hidden></span></button>
+      <button role="tab" data-tab="bookings" aria-selected="false">Bookings</button>
+      <button role="tab" data-tab="menu" aria-selected="false">Menu</button>
+    </nav>
+    <div class="adm-right">
+      <span class="adm-mode" data-mode title="Where data is stored"></span>
+      <button class="adm-icon-btn" type="button" data-sound aria-pressed="true" title="New-order chime">Chime on</button>
+      <span class="adm-clock" data-clock></span>
+      <a class="adm-icon-btn" href="../index.html">View site</a>
+    </div>
+  </header>
+
+  <div class="adm-key" data-keybar hidden>
+    <form data-key-form>
+      <label for="adm-key">Admin key</label>
+      <input class="input" id="adm-key" name="key" type="password" autocomplete="off">
+      <button class="btn btn-primary btn-sm" type="submit">Connect</button>
+      <span class="muted">The server rejected the saved key. Set ADMIN_KEY on the server and enter it here.</span>
+    </form>
+  </div>
+
+  <main class="adm-main">
+    <!-- Orders -->
+    <section data-panel="orders">
+      <div class="adm-stats" data-order-stats></div>
+      <div class="board" data-board></div>
+    </section>
+
+    <!-- Bookings -->
+    <section data-panel="bookings" hidden>
+      <div class="adm-toolbar">
+        <div class="adm-datenav">
+          <button class="adm-icon-btn" type="button" data-day="-1" aria-label="Previous day">‹</button>
+          <input class="input" type="date" data-res-date aria-label="Date">
+          <button class="adm-icon-btn" type="button" data-day="1" aria-label="Next day">›</button>
+          <button class="adm-icon-btn" type="button" data-day="0">Today</button>
+        </div>
+        <div class="adm-stats inline" data-res-stats></div>
+      </div>
+      <div data-res-list></div>
+    </section>
+
+    <!-- Menu -->
+    <section data-panel="menu" hidden>
+      <p class="adm-help">Switch a dish off when it runs out. It shows as “Sold out today” on the website within 30 seconds and can't be ordered.</p>
+      <div data-menu-list></div>
+    </section>
+  </main>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

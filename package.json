@@ -1,0 +1,13 @@
+{
+  "name": "chulo-restaurant-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Demo website for Chulo, a Nepali & North Indian restaurant: online ordering, table booking and a kitchen/admin view.",
+  "scripts": {
+    "start": "node server.js",
+    "reset": "node -e \"require('fs').rmSync('data',{recursive:true,force:true})\""
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

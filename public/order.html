@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Menu &amp; Order Online · Chulo</title>
+  <meta name="description" content="Order momo, curries, dal bhat and tandoor dishes from Chulo for collection or delivery in Hackney.">
+  <meta name="theme-color" content="#f3ebdf">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23a12d1a'/%3E%3Ctext x='32' y='45' font-family='Georgia' font-size='38' text-anchor='middle' fill='%23f3ebdf'%3EC%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Young+Serif&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/menu-data.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/site.js"></script>
+</head>
+<body>
+  <script>Chulo.renderHeader('order')</script>
+
+  <main id="main">
+    <!-- ===== Menu view ===== -->
+    <section class="wrap page-head order-head" data-view="menu">
+      <div>
+        <p class="eyebrow">Order online</p>
+        <h1 class="h1">The menu</h1>
+        <p class="lede">Cooked to order. Collect from Tamarind Yard, or our own riders bring it to you within 3 miles.</p>
+      </div>
+      <div class="fulfil">
+        <div class="segmented" role="group" aria-label="Collection or delivery">
+          <button type="button" data-type="collection" aria-pressed="true"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5 5.5 4.5h13L20 9.5"/><path d="M5 9.5v10h14v-10"/><path d="M4 9.5a2.7 2.7 0 0 0 5.3 0 2.7 2.7 0 0 0 5.4 0 2.7 2.7 0 0 0 5.3 0"/><path d="M10 19.5v-5h4v5"/></svg>Collection</button>
+          <button type="button" data-type="delivery" aria-pressed="false"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="16.5" r="3.2"/><circle cx="18" cy="16.5" r="3.2"/><path d="M6 16.5 9.5 9h5l3.5 7.5M12 16.5 9.5 9M8 6h3"/></svg>Delivery</button>
+        </div>
+        <button class="when-btn" type="button" data-when-open aria-haspopup="dialog">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
+          <span data-when-label>ASAP</span>
+        </button>
+      </div>
+      <div class="closed-note" data-closed-note hidden></div>
+    </section>
+
+    <div class="wrap order-layout" data-view="menu">
+      <nav class="cat-rail" aria-label="Menu sections"><ol data-cat-rail></ol></nav>
+
+      <div class="menu-col">
+        <div class="menu-tools">
+          <nav class="cat-tabs" data-cat-tabs aria-label="Menu sections"></nav>
+          <div class="search">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+            <input type="search" placeholder="Search dishes, e.g. momo, paneer" aria-label="Search the menu" data-search autocomplete="off">
+          </div>
+          <div class="chips filter-chips" role="group" aria-label="Dietary filters">
+            <button class="chip" type="button" aria-pressed="false" data-filter="v">Vegetarian</button>
+            <button class="chip" type="button" aria-pressed="false" data-filter="vg">Vegan</button>
+            <button class="chip" type="button" aria-pressed="false" data-filter="gf">Gluten-free</button>
+            <button class="chip" type="button" aria-pressed="false" data-filter="mild">No chilli</button>
+          </div>
+        </div>
+        <div data-menu>
+          <p class="empty-results">Loading the menu…</p>
+        </div>
+        <p class="muted" style="font-size:.85rem;margin-top:32px">V vegetarian · VG vegan · GF gluten-free · N contains nuts. Our kitchen handles all major allergens; please tell us about allergies in the order notes or call <a href="tel:02079460321">020 7946 0321</a>.</p>
+      </div>
+
+      <aside class="cart-panel" data-cart-panel aria-label="Your order">
+        <div class="cart" data-cart></div>
+      </aside>
+    </div>
+    <div class="cart-backdrop" data-cart-backdrop></div>
+    <button class="cart-bar" type="button" data-cart-bar aria-haspopup="dialog">
+      <span><span class="cart-bar-count" data-bar-count>0</span>View your order</span>
+      <span data-bar-total class="tabular"></span>
+    </button>
+
+    <!-- ===== Checkout view ===== -->
+    <section class="wrap" data-view="checkout" hidden>
+      <div class="page-head" style="padding-bottom:12px">
+        <a class="link checkout-back" href="#menu" data-back><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5"/><path d="m10 6-6 6 6 6"/></svg>Back to menu</a>
+        <h1 class="h1">Checkout</h1>
+      </div>
+      <form class="checkout-layout" data-checkout-form novalidate>
+        <div>
+          <div class="form-alert" data-form-alert role="alert" hidden></div>
+
+          <section class="checkout-section">
+            <h2><span class="step-no">01</span>Your details</h2>
+            <div class="form-grid">
+              <div class="field span-2"><label for="c-name">Full name</label><input class="input" id="c-name" name="name" autocomplete="name" required><span class="field-error"></span></div>
+              <div class="field"><label for="c-phone">Mobile</label><input class="input" id="c-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required><span class="field-hint">We'll text you when it's ready.</span><span class="field-error"></span></div>
+              <div class="field"><label for="c-email">Email</label><input class="input" id="c-email" name="email" type="email" autocomplete="email" required><span class="field-hint">For your receipt.</span><span class="field-error"></span></div>
+            </div>
+          </section>
+
+          <section class="checkout-section" data-only="delivery">
+            <h2><span class="step-no">02</span>Delivery address</h2>
+            <div class="form-grid">
+              <div class="field span-2"><label for="c-line1">Street address</label><input class="input" id="c-line1" name="line1" autocomplete="address-line1"><span class="field-error"></span></div>
+              <div class="field"><label for="c-line2">Flat, floor, building <small>(optional)</small></label><input class="input" id="c-line2" name="line2" autocomplete="address-line2"><span class="field-error"></span></div>
+              <div class="field"><label for="c-postcode">Postcode</label><input class="input" id="c-postcode" name="postcode" autocomplete="postal-code" style="text-transform:uppercase"><span class="field-error"></span></div>
+              <div class="field span-2"><label for="c-instr">Instructions for the rider <small>(optional)</small></label><input class="input" id="c-instr" name="instructions" placeholder="e.g. Buzzer 4, leave with concierge"><span class="field-error"></span></div>
+            </div>
+          </section>
+
+          <section class="checkout-section" data-only="collection">
+            <h2><span class="step-no">02</span>Collection</h2>
+            <p style="margin:0">Pick up from the counter at <strong>3 Tamarind Yard, E8 4QT</strong>. Give your name or order number and we'll bring it out.</p>
+          </section>
+
+          <section class="checkout-section">
+            <h2><span class="step-no">03</span>When</h2>
+            <div class="choice" style="cursor:default">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true" style="color:var(--chili)"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>
+              <div class="choice-body"><strong data-when-summary></strong><small data-when-sub></small></div>
+              <button class="btn btn-ghost btn-sm" type="button" data-when-open>Change</button>
+            </div>
+            <span class="field-error" data-when-error style="display:none;margin-top:8px"></span>
+          </section>
+
+          <section class="checkout-section">
+            <h2><span class="step-no">04</span>Payment</h2>
+            <div class="choice-list" data-payment></div>
+          </section>
+
+          <section class="checkout-section">
+            <h2><span class="step-no">05</span>Anything else?</h2>
+            <div class="field"><label for="c-notes">Notes for the kitchen <small>(allergies, spice, requests)</small></label><textarea class="textarea" id="c-notes" name="notes" maxlength="300" placeholder="e.g. Sesame allergy, please keep the C-Momo extra hot"></textarea></div>
+            <label class="check" style="margin-top:16px"><input type="checkbox" name="cutlery"><span>Include cutlery and napkins <span class="muted">(we leave them out unless you ask)</span></span></label>
+          </section>
+        </div>
+
+        <aside class="summary" aria-label="Order summary">
+          <h2>Your order</h2>
+          <p class="summary-meta" data-summary-meta></p>
+          <ul class="summary-lines" data-summary-lines></ul>
+          <div data-summary-totals></div>
+          <button class="btn btn-primary btn-block" type="submit" data-place><span>Place order</span><span data-place-total class="tabular"></span></button>
+          <p class="summary-note">You'll pay when you collect or when it arrives. We'll confirm by text.</p>
+        </aside>
+      </form>
+    </section>
+  </main>
+
+  <!-- Item dialog -->
+  <dialog class="as-sheet" data-item-dialog aria-labelledby="item-title">
+    <form class="sheet" method="dialog" data-item-form></form>
+  </dialog>
+
+  <!-- When dialog -->
+  <dialog class="as-sheet" data-when-dialog aria-labelledby="when-title">
+    <div class="sheet sheet-plain">
+      <button class="sheet-close" type="button" data-close aria-label="Close"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+      <div class="sheet-body">
+        <h2 class="h3" id="when-title" data-when-title>When would you like it?</h2>
+        <p class="sheet-desc" data-when-desc></p>
+        <div class="day-tabs chips" data-day-tabs role="group" aria-label="Day" style="margin-top:20px"></div>
+        <div class="time-grid" data-time-grid role="group" aria-label="Time"></div>
+      </div>
+      <div class="sheet-foot"><button class="btn btn-primary" type="button" data-when-save><span>Confirm time</span><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="m14 6 6 6-6 6"/></svg></button></div>
+    </div>
+  </dialog>
+
+  <script>Chulo.renderFooter()</script>
+  <script src="js/api.js" defer></script>
+  <script src="js/order.js" defer></script>
+</body>
+</html>

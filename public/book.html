@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Book a Table · Chulo</title>
+  <meta name="description" content="Book a table at Chulo, Nepali &amp; North Indian kitchen in Hackney. Tables for 1 to 8, private dining for up to 24.">
+  <meta name="theme-color" content="#f3ebdf">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23a12d1a'/%3E%3Ctext x='32' y='45' font-family='Georgia' font-size='38' text-anchor='middle' fill='%23f3ebdf'%3EC%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Young+Serif&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/menu-data.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/site.js"></script>
+</head>
+<body>
+  <script>Chulo.renderHeader('book')</script>
+
+  <main id="main">
+    <div class="wrap book-layout">
+      <section class="book-main">
+        <div class="page-head" style="padding-bottom:0">
+          <p class="eyebrow" data-head-eyebrow>Reservations</p>
+          <h1 class="h1" data-head-title>Book a table</h1>
+          <p class="lede" data-head-lede>Tables for one to eight. For nine or more, or the whole back room, give us a call and we'll sort it out together.</p>
+        </div>
+
+        <ol class="steps" data-steps aria-label="Booking progress">
+          <li data-s="1"><span>Table</span></li>
+          <li data-s="2"><span>Your details</span></li>
+          <li data-s="3"><span>Confirmed</span></li>
+        </ol>
+
+        <!-- Step 1: party, date, time -->
+        <form data-step="1" novalidate>
+          <div class="form-alert" data-alert1 role="alert" hidden style="margin-top:20px"></div>
+
+          <fieldset class="book-block">
+            <legend>How many guests?</legend>
+            <div class="chips party-chips" data-party role="group" aria-label="Number of guests"></div>
+            <div class="form-alert large-party" data-large hidden>
+              <span>For nine or more we'll set up the back room for you. Call <a href="tel:02079460321"><strong>020 7946 0321</strong></a> or <a href="mailto:hello@chulo.example?subject=Large%20group%20booking"><strong>email us</strong></a> with a date in mind.</span>
+            </div>
+          </fieldset>
+
+          <fieldset class="book-block" data-date-block>
+            <legend><span>Date</span><span class="date-nav"><span class="date-month" data-month aria-live="polite"></span><button type="button" data-scroll="-1" aria-label="Earlier dates"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m14.5 6-6 6 6 6"/></svg></button><button type="button" data-scroll="1" aria-label="Later dates"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 6 6 6-6 6"/></svg></button></span></legend>
+            <div class="date-strip" data-dates role="group" aria-label="Date"></div>
+          </fieldset>
+
+          <fieldset class="book-block" data-time-block>
+            <legend><span>Time</span><small data-slot-note></small></legend>
+            <div data-slots aria-live="polite"></div>
+          </fieldset>
+
+          <div class="book-bar">
+            <p class="book-summary" data-summary1>Choose a time to continue.</p>
+            <button class="btn btn-primary" type="submit" data-next disabled>Continue <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15"/><path d="m14 6 6 6-6 6"/></svg></button>
+          </div>
+          <p style="margin-top:8px;font-size:.92rem"><a class="link" href="#manage" data-to-manage>Already booked? Change or cancel it</a></p>
+        </form>
+
+        <!-- Step 2: details -->
+        <form data-step="2" novalidate hidden>
+          <div class="book-block" style="display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 0">
+            <p style="margin:0" data-summary2></p>
+            <button class="link" type="button" data-back>Change</button>
+          </div>
+          <div class="form-alert" data-alert2 role="alert" hidden style="margin-top:20px"></div>
+          <div class="book-block">
+            <div class="block-title">Your details</div>
+            <div class="form-grid" style="clear:both">
+              <div class="field span-2"><label for="b-name">Name for the booking</label><input class="input" id="b-name" name="name" autocomplete="name" required><span class="field-error"></span></div>
+              <div class="field"><label for="b-email">Email</label><input class="input" id="b-email" name="email" type="email" autocomplete="email" required><span class="field-hint">Your confirmation goes here.</span><span class="field-error"></span></div>
+              <div class="field"><label for="b-phone">Mobile</label><input class="input" id="b-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required><span class="field-hint">Only used if we need to reach you on the day.</span><span class="field-error"></span></div>
+            </div>
+          </div>
+          <div class="book-block">
+            <div class="block-title">A few extras <small>Optional</small></div>
+            <div class="field" style="clear:both">
+              <span class="field-label">Is it a special occasion?</span>
+              <div class="chips occasion-chips" data-occasions role="group" aria-label="Occasion"></div>
+            </div>
+            <div class="field" style="margin-top:22px">
+              <span class="field-label">Seating preference</span>
+              <div class="chips occasion-chips" data-seating role="group" aria-label="Seating preference"></div>
+              <span class="field-hint">We'll do our best, but can't promise a particular table.</span>
+            </div>
+            <div class="field" style="margin-top:22px">
+              <label for="b-notes">Allergies, high chairs, anything else</label>
+              <textarea class="textarea" id="b-notes" name="notes" maxlength="500" placeholder="e.g. One guest is coeliac; we're bringing a pram"></textarea>
+            </div>
+          </div>
+          <div class="book-bar">
+            <p class="book-summary">We hold tables for 15 minutes. Free to cancel any time.</p>
+            <button class="btn btn-primary" type="submit" data-confirm>Confirm booking</button>
+          </div>
+        </form>
+
+        <!-- Step 3: confirmation -->
+        <div data-step="3" hidden></div>
+
+        <!-- Manage -->
+        <section data-manage hidden>
+          <form class="book-block" data-manage-form novalidate style="border-top:0">
+            <div class="form-alert" data-alert-m role="alert" hidden style="margin-bottom:18px"></div>
+            <div class="form-grid">
+              <div class="field"><label for="m-ref">Booking reference</label><input class="input" id="m-ref" name="ref" placeholder="TB-XXXX" style="text-transform:uppercase" required></div>
+              <div class="field"><label for="m-email">Email used to book</label><input class="input" id="m-email" name="email" type="email" autocomplete="email" required></div>
+            </div>
+            <div style="display:flex;gap:16px;align-items:center;margin-top:20px">
+              <button class="btn btn-primary" type="submit">Find my booking</button>
+              <a class="link" href="book.html" data-new>Make a new booking</a>
+            </div>
+          </form>
+          <div data-manage-result></div>
+        </section>
+      </section>
+
+      <aside class="book-aside" aria-label="Good to know">
+        <figure class="photo" style="margin:0">
+          <img src="https://images.unsplash.com/photo-1582228096960-7f5d2ec4aa8e?auto=format&fit=crop&w=900&h=675&q=72" width="900" height="675" alt="A wooden table set with plates and bowls of food" loading="lazy">
+        </figure>
+        <div class="aside-card">
+          <h2>Good to know</h2>
+          <ul class="aside-list">
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg><span>Tables are yours for 1½ hours, or 2 hours for five or more. We rarely chase anyone out.</span></li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8.5" r="3.2"/><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0"/><path d="M15.5 5.6a3.2 3.2 0 0 1 0 5.8M17 14.2a5.5 5.5 0 0 1 3.5 5.3"/></svg><span>Children are very welcome. We have high chairs and a small plain menu.</span></li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21c-3.9 0-6.5-2.6-6.5-6.2 0-3.6 3-5.3 3.6-9.3 2.6 1.6 4 4 4.2 6.2.9-.6 1.6-1.8 1.8-3.1 2 1.7 3.4 3.9 3.4 6.2C18.5 18.4 15.9 21 12 21Z"/></svg><span>Most dishes can be made milder, or hotter. Tell your server.</span></li>
+            <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z"/><circle cx="12" cy="10" r="2.3"/></svg><span>3 Tamarind Yard, E8 4QT. Step-free from the yard.</span></li>
+          </ul>
+        </div>
+        <div class="aside-card">
+          <h2>Opening hours</h2>
+          <table class="hours-table"><tbody data-hours></tbody></table>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script>Chulo.renderFooter()</script>
+  <script src="js/api.js" defer></script>
+  <script src="js/book.js" defer></script>
+</body>
+</html>
