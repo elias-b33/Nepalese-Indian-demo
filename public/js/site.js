@@ -184,6 +184,7 @@
       document.querySelectorAll('[data-open-status]').forEach((el) => {
         el.textContent = st.text;
         el.classList.toggle('is-open', st.open);
+        if (el.classList.contains('open-chip')) el.title = st.open ? 'The diyo is lit: our kitchen is open' : 'The diyo is out: our kitchen is closed';
       });
     };
     paintStatus();
