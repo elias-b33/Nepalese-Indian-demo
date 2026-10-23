@@ -29,7 +29,7 @@
       let x = 0, y = 0, tx = 0, ty = 0, raf = null;
       const loop = () => {
         x += (tx - x) * 0.18; y += (ty - y) * 0.18;
-        hover.style.left = x + 'px'; hover.style.top = y + 'px';
+        hover.style.transform = 'translate3d(' + (x - hover.offsetWidth / 2) + 'px,' + (y - hover.offsetHeight / 2) + 'px,0)';
         raf = Math.abs(tx - x) + Math.abs(ty - y) > 0.5 ? requestAnimationFrame(loop) : null;
       };
       list.addEventListener('pointermove', (e) => {
@@ -45,6 +45,12 @@
         row.addEventListener('pointerleave', () => hover.classList.remove('is-on'));
       });
     }
+  }
+
+  /* Only spin the hero stamp while it's on screen. */
+  const stamp = document.querySelector('.stamp');
+  if (stamp && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([en]) => stamp.classList.toggle('is-paused', !en.isIntersecting)).observe(stamp);
   }
 
   /* Region lists */
