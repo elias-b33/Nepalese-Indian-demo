@@ -6,6 +6,8 @@ booking management, and a kitchen/admin view, all running on one small, document
 
 No frameworks and no build step. Plain HTML, CSS and JavaScript, plus a zero-dependency Node server.
 
+**Live demo:** https://chulo-restaurant-demo.vercel.app · kitchen view: https://chulo-restaurant-demo.vercel.app/admin/
+
 ```
 public/              the website (deployable as static files)
   index.html         home
